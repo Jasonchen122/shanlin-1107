@@ -108,6 +108,38 @@ details.m summary::before{content:"🍽";background:transparent;color:var(--brow
 .dish span:last-child{color:var(--brown);font-variant-numeric:tabular-nums}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:16px;background:var(--green);color:#fff;font:inherit;font-weight:900;font-size:1.15rem;min-height:60px;padding:12px 18px;text-decoration:none;width:100%;margin-top:10px}
 .sec{font-weight:900;font-size:1.1rem;color:var(--brown);margin:18px 0 6px}
+.sbox{display:flex;gap:10px;margin:10px 0}
+.sbox input{flex:1;min-width:0;border:3px solid var(--green);border-radius:16px;background:#fff;color:var(--ink);font:inherit;font-size:1.3rem;padding:12px 14px;min-height:64px}
+.sbox button{flex:none;border:0;border-radius:16px;background:var(--green);color:#fff;font:inherit;font-weight:900;font-size:1.15rem;padding:0 20px;min-height:64px}
+.res{border-radius:18px;padding:16px;margin:12px 0;border:3px solid var(--green);background:var(--green2);font-size:1.1rem}
+.res .big{font-size:1.9rem;font-weight:900;color:var(--green);line-height:1.3}
+.res.no{border-color:var(--orange);background:var(--orange2)}
+.res.no .big{color:var(--brown)}
+.res .lead{font-size:1.25rem;font-weight:800;color:var(--brown);margin-top:6px}
+.gcard{display:flex;align-items:center;gap:12px;background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:12px 14px;margin:10px 0;box-shadow:0 2px 6px rgba(70,50,10,.08)}
+.gcard .gn{flex:none;background:var(--green);color:#fff;font-weight:900;border-radius:12px;padding:6px 12px;font-size:1.05rem}
+.gcard .gl{font-weight:800;font-size:1.1rem}
+.gcard .gl small{display:block;font-weight:600;color:var(--sub);font-size:.8rem}
+details.gd summary::before{content:none}
+details.gd summary{align-items:center}
+details.gd summary .gn{flex:none;background:var(--green);color:#fff;font-weight:900;border-radius:12px;padding:6px 12px;font-size:1.05rem}
+details.gd summary .gl{font-weight:800;font-size:1.05rem;line-height:1.4}
+details.gd summary .gl small{display:block;font-weight:600;color:var(--sub);font-size:.8rem}
+details.gd .a::before{content:none}
+details.gd .a{padding-top:12px}
+.nm{display:inline-block;background:var(--green2);color:var(--green);font-weight:800;border-radius:999px;padding:4px 14px;margin:4px 6px 4px 0;font-size:1.05rem}
+.nm.ld{background:var(--orange2);color:var(--brown)}
+.fun-card{background:linear-gradient(135deg,#FFF3D6,#FFE3E0);border:3px dashed var(--orange)}
+.chk.fun{border-bottom:0;padding:10px 4px}
+.chk.fun input{accent-color:var(--red)}
+.chk.fun .x{font-weight:900;font-size:1.25rem;color:var(--red)}
+.chk.fun .x small{font-weight:700;color:var(--sub)}
+.chk.fun input:checked + .x{text-decoration:none;color:var(--red)}
+.chk.fun .fm{display:none;margin-top:6px;font-weight:800;color:var(--green);font-size:1rem}
+.chk.fun input:checked + .x .fm{display:block}
+.chk.fun .hh{display:inline-block;margin-right:4px}
+.chk.fun input:checked + .x .hh{animation:beat .8s ease-in-out 3}
+@keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.5)}60%{transform:scale(.95)}}
 footer{text-align:center;color:var(--sub);font-size:.85rem;margin:22px 0 4px}
 .hills{height:90px;margin-top:20px}
 .hills svg{width:100%;height:100%;display:block}
@@ -144,6 +176,7 @@ a{color:var(--blue);font-weight:800}
 
   <div class="ribbon br" style="margin-top:8px">想看什麼？點一下</div>
   <div class="menu">
+    <button class="mbtn o" data-go="group"><span class="e">👥</span><span>我是哪一組？<small>輸入名字，就知道自己是哪一組</small></span></button>
     <button class="mbtn" data-go="route"><span class="e">🚶</span><span>今天怎麼走<small>幾點到哪裡、路上注意什麼</small></span></button>
     <button class="mbtn" data-go="train"><span class="e">🚆</span><span>搭火車時間<small>去程、回家的班次</small></span></button>
     <button class="mbtn" data-go="pack"><span class="e">🎒</span><span>要帶什麼<small>可以一項一項打勾</small></span></button>
@@ -158,6 +191,20 @@ a{color:var(--blue);font-weight:800}
     <button class="s1" data-fs="s">小</button><button class="s2 on" data-fs="m">中</button><button class="s3" data-fs="l">大</button><button class="s3" data-fs="x" style="font-size:1.45rem">特大</button>
   </div>
   <div class="hills"><svg viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 90V50l50-24 50 30 60-40 70 44 60-26 60 30 50-20v66z" fill="#9CC48C" opacity=".6"/><path d="M0 90V66l60-22 70 26 80-28 190 30v18z" fill="#3F6B2F"/></svg></div>
+</section>
+
+<!-- ===== 分組 ===== -->
+<section class="view" id="group">
+  <div class="card" style="margin-top:16px">
+    <div class="ribbon br">我是哪一組？</div>
+    <div>請輸入<b>自己的名字</b>（寫姓名或只寫名字都可以），再按「查詢」。</div>
+    <div class="sbox"><input id="gIn" type="text" placeholder="例如：小明" autocomplete="off" aria-label="輸入名字"><button id="gBtn">查詢</button></div>
+    <div id="gRes"></div>
+  </div>
+  <div class="sec">各組名單（點一下打開）</div>
+  <div style="font-size:.9rem;color:var(--sub);margin-bottom:6px">想知道朋友在哪一組，可以在這裡找。橘色是小組長。</div>
+  <div id="gList"></div>
+  <div class="note">找不到自己的名字、或不確定是哪一組，請到 <b>LINE 社群</b>告訴我們，我們會幫您確認。</div>
 </section>
 
 <!-- ===== 行程 ===== -->
@@ -285,7 +332,7 @@ a{color:var(--blue);font-weight:800}
   function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 
   /* views */
-  var TITLES={home:'',route:'今天怎麼走',train:'搭火車時間',pack:'要帶什麼',dinner:'晚餐和菜單',qa:'常見問題'};
+  var TITLES={home:'',group:'我是哪一組？',route:'今天怎麼走',train:'搭火車時間',pack:'要帶什麼',dinner:'晚餐和菜單',qa:'常見問題'};
   function go(id){
     if(!TITLES.hasOwnProperty(id))id='home';
     $$('.view').forEach(function(v){v.classList.toggle('on',v.id===id)});
@@ -294,6 +341,44 @@ a{color:var(--blue);font-weight:800}
   }
   document.addEventListener('click',function(e){var b=e.target.closest('[data-go]');if(b){e.preventDefault();go(b.getAttribute('data-go'))}});
   var h=(location.hash||'').replace('#','');if(h)go(h);
+
+
+  /* groups */
+  var GROUPS=[
+   {n:'第一組',l:['敬勳哥','彥均'],m:['鈞翔','世鴻','家豪','濬煬','霖沼','偉中','明華','國雄','惠妮']},
+   {n:'第二組',l:['珊羽'],m:['盈欣','芝瑜','欣瑜','芷苓','小苓','小富','小偉','皓庭']},
+   {n:'第三組',l:['茗莉'],m:['敏甄','怡伶','莉莉','彩虹','慧曄','佳靜','意如','素茹','紋龍','志栩','停英','楹珊','怡真']},
+   {n:'第四組',l:['奉建'],m:['綺倫','雅卿','維縈','冠冠','世珍','寶順','美琪','志宏','水瀞']},
+   {n:'第五組',l:['品秀'],m:['玫伶','金雪','佳靜','武龍','銘偉','和忻','詠翔','政儒','姻因','惠玲']}
+  ];
+  var NAMES={"iqlofd5mc9":[0],"125l7e94kp7":[0],"9j3czkk2y9":[0],"109e7zkvojk":[0],"10llkh6nd5x":[0],"2btqfj5seez":[0],"1dtmibtyu3u":[0],"1tdb2hyqvxs":[0],"1dkxa2pj724":[0],"objudqdqgr":[1],"2dw3nx2093j":[1],"lnti25ea18":[1],"1uj2ytk4r5n":[1],"112zj3m6r0j":[1],"26cxedua6bv":[1],"toznonvudr":[1],"9vqegkatfp":[1],"9p13poipkr":[2],"ype1gu4n7d":[2],"j515uj5ky7":[2],"2b5v1ofrueo":[2],"18yojmsca9w":[2],"1e9h5y9llrr":[2,4],"1rrtiluhv22":[2],"1eqfpwalkam":[2],"zbioqy0z9w":[2],"lmi9t0zdxb":[2],"1oaebrb5vjp":[2],"12om182wfo9":[2],"2dfy36udvix":[2],"1ala8un6bwr":[3],"8bkot31s99":[3],"2dmaiifuysh":[3],"2bbv70nfyy2":[3],"1p1yzlpkn5c":[3],"1itril3pvmz":[3],"2gfzzup2mfp":[3],"dxq44g6aq8":[3],"1nx88jexizu":[3],"173yiug4ur":[4],"sfp6cv3f10":[4],"1r3pg2ip4zv":[4],"iwz7bvl9sz":[4],"ptv1n20jof":[4],"23p7b0abig3":[4],"12nwdfrl133":[4],"jw0paydhk0":[4],"191o2madswc":[4]};
+  function cyrb53(str){var h1=0xdeadbeef,h2=0x41c6ce57;for(var i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
+  function stripSuf(s){return s.replace(/[哥姐姊]$/,'')}
+  function findGroup(raw){
+    var s=(raw||'').normalize('NFKC').replace(/\s+/g,'');
+    if(!s)return null;
+    var cands=[];for(var i=0;i<=s.length-2;i++)cands.push(s.slice(i));
+    for(var c=0;c<cands.length;c++){
+      var q=cands[c],hit=[],lead=[];
+      var h=cyrb53(q);if(NAMES[h])NAMES[h].forEach(function(g){if(hit.indexOf(g)<0)hit.push(g)});
+      GROUPS.forEach(function(g,gi){g.l.forEach(function(l){if(l===q||stripSuf(l)===q||stripSuf(l)===stripSuf(q)){if(lead.indexOf(gi)<0)lead.push(gi)}})});
+      if(hit.length||lead.length)return {hit:hit,lead:lead,q:q};
+    }
+    return {hit:[],lead:[],q:s,none:true};
+  }
+  function showGroup(){
+    var r=findGroup($('#gIn').value),box=$('#gRes');
+    if(!r){box.innerHTML='<div class="res no"><div class="big">請先輸入名字</div></div>';return}
+    if(r.none){box.innerHTML='<div class="res no"><div class="big">找不到這個名字</div>請確認名字有沒有寫對，或試試只寫名字（不用寫姓）。<br>還是找不到，請到 <b>LINE 社群</b>告訴我們。</div>';return}
+    var h='';
+    if(r.lead.length&&!r.hit.length){var g=GROUPS[r.lead[0]];h='<div class="res"><div class="big">您是 '+g.n+' 的小組長</div><div class="lead">小組長：'+g.l.join('、')+'</div></div>'}
+    else if(r.hit.length===1){var g1=GROUPS[r.hit[0]];h='<div class="res"><div class="big">✅ 您是 '+g1.n+'</div><div class="lead">小組長：'+g1.l.join('、')+'</div></div>'}
+    else{h='<div class="res no"><div class="big">有 '+r.hit.length+' 位同名的朋友</div>請確認自己是哪一組：'+r.hit.map(function(gi){var g=GROUPS[gi];return '<div class="lead">'+g.n+'・小組長 '+g.l.join('、')+'</div>'}).join('')+'<div style="margin-top:6px">不確定的話，請到 LINE 社群詢問。</div></div>'}
+    box.innerHTML=h;
+  }
+  $('#gBtn').onclick=showGroup;
+  $('#gIn').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();showGroup();this.blur()}});
+  $('#gList').innerHTML=GROUPS.map(function(g){return '<details class="q gd"><summary><span class="gn">'+g.n+'</span><span class="gl">小組長：'+g.l.join('、')+'<small>成員 '+g.m.length+' 人・點開看名單</small></span></summary><div class="a">'+g.l.map(function(x){return '<span class="nm ld">'+x+'</span>'}).join('')+g.m.map(function(x){return '<span class="nm">'+x+'</span>'}).join('')+'</div></details>'}).join('');
 
   /* font size */
   function setFs(k){
@@ -316,20 +401,21 @@ a{color:var(--blue);font-weight:800}
   /* pack list */
   var PACK=[
    ['👕 身上穿的','依照當天氣溫自己調整',[['排汗快乾長／短袖上衣','避免純棉'],['透氣防曬外套或袖套'],['快乾長褲或機能褲'],['已穿過、合腳的健走鞋','不要穿高跟鞋！',1],['厚底排汗運動襪'],['遮陽帽、太陽眼鏡'],['防風保暖外套','看當天天氣決定']]],
-   ['🎒 背包裡','',[['水壺','夠喝 2 小時的水量；隧道入口有飲水機'],['自己的零食、行動糧'],['防曬乳、護唇膏'],['身分證件、健保卡、緊急聯絡卡'],['手機、行動電源、悠遊卡'],['少量現金'],['隨身垃圾袋','垃圾請自己帶走'],['雨傘','以備不時之需']]]
+   ['🎒 背包裡','',[['水壺','夠喝 2 小時的水量；隧道入口有飲水機'],['自己的零食、行動糧'],['防曬乳、護唇膏'],['身分證件、健保卡、緊急聯絡卡'],['手機、行動電源、悠遊卡'],['少量現金'],['隨身垃圾袋','垃圾請自己帶走'],['雨傘','以備不時之需']]],
+   ['💛 最後，也是最重要的','',[['期待的心','重量 0 公克，不占背包空間，但一定要帶！']],1]
   ];
   var ps=lsGet('pack',{});
   function renderPack(){
     var box=$('#packList');box.innerHTML='';
     PACK.forEach(function(g,gi){
-      var c=document.createElement('div');c.className='card';
+      var c=document.createElement('div');c.className='card'+(g[3]?' fun-card':'');
       var html='<div class="ribbon">'+g[0]+'</div>'+(g[1]?'<div style="font-size:.9rem;color:var(--sub)">'+g[1]+'</div>':'');
-      g[2].forEach(function(it,ii){var k=gi+'-'+ii;html+='<label class="chk"><input type="checkbox" data-k="'+k+'"'+(ps[k]?' checked':'')+'><span class="x">'+it[0]+(it[1]?'<small'+(it[2]?' class="f"':'')+'>'+it[1]+'</small>':'')+'</span></label>'});
+      g[2].forEach(function(it,ii){var k=(g[3]?'fun-':gi+'-')+ii;if(g[3]){html+='<label class="chk fun"><input type="checkbox" data-k="'+k+'"'+(ps[k]?' checked':'')+'><span class="x"><span class="hh">❤️</span> '+it[0]+'<small>'+it[1]+'</small><span class="fm">✅ 已裝進背包！保證路上走得更輕鬆，心情滿滿 🎉</span></span></label>'}else{html+='<label class="chk"><input type="checkbox" data-k="'+k+'"'+(ps[k]?' checked':'')+'><span class="x">'+it[0]+(it[1]?'<small'+(it[2]?' class="f"':'')+'>'+it[1]+'</small>':'')+'</span></label>'}});
       c.innerHTML=html;box.appendChild(c);
     });
     $$('#packList input').forEach(function(i){i.onchange=function(){ps[i.getAttribute('data-k')]=i.checked;lsSet('pack',ps);upd()}});upd();
-    function upd(){var t=0,d=0;PACK.forEach(function(g,gi){g[2].forEach(function(x,ii){t++;if(ps[gi+'-'+ii])d++})});
-      $('#pgTxt').textContent=d===t?'🎉 全部準備好了！山裡見':'已準備 '+d+' / '+t+' 項';$('#pgBar').style.width=Math.round(d/t*100)+'%'}
+    function upd(){var t=0,d=0;PACK.forEach(function(g,gi){g[2].forEach(function(x,ii){t++;if(ps[(g[3]?'fun-':gi+'-')+ii])d++})});
+      $('#pgTxt').textContent=d===t?'🎉 全部準備好了！心也帶了，山裡見':'已準備 '+d+' / '+t+' 項';$('#pgBar').style.width=Math.round(d/t*100)+'%'}
   }
   renderPack();
 
@@ -348,6 +434,7 @@ a{color:var(--blue);font-weight:800}
 
   /* QA */
   var QA=[
+   ['出發集合','我是哪一組？','請回到首頁按「我是哪一組？」，輸入自己的名字就查得到。找不到或不確定，請到 LINE 社群詢問。 <a href="#" data-go="group">去查自己的組別</a>'],
    ['出發集合','幾點、在哪裡集合？','下午 <b>2:44</b> 到牡丹車站<b>大廳</b>集合，<b>3:00</b> 準時出發。'],
    ['出發集合','為什麼一定要準時出發？','三貂嶺隧道有申請入場的時段，3:00 準時出發才能趕上。若要遲到請先讓我們知道。'],
    ['出發集合','我可能會遲到，怎麼辦？','<ul><li>請主動聯絡帶您來的朋友，並且<b>在 LINE 社群裡說一聲</b>。</li><li>最保險的方式：和帶您來的朋友約在台北車站，<b>提早 30 分鐘</b>碰面，一起搭火車（建議班次：區間 4188，13:34 台北發車、14:44 到牡丹）。</li></ul>'],
@@ -363,7 +450,7 @@ a{color:var(--blue);font-weight:800}
    ['晚餐','晚餐怎麼坐、怎麼點、怎麼付？','到瑞芳後由我們帶大家一起走去餐廳。餐廳是圓桌，<b>一桌 10 人</b>，依分組入座，點餐由各桌自己處理，費用<b>平均分攤</b>。菜單可以先看：<a href="#" data-go="dinner">看晚餐和菜單</a>'],
    ['下雨','下雨還會舉行嗎？','前一天預報有雨，除非是豪雨，活動照常舉行，但路線會調整：走完三貂嶺隧道後，轉往三貂嶺車站搭車前往瑞芳。走路途中突然下雨也一樣處理。記得帶雨傘。'],
    ['下雨','怎麼知道活動有沒有照常？','前一天會重新確認大家的出席名單與用餐人數，並在社群公告。'],
-   ['準備','要穿什麼、帶什麼？','重點：<b>合腳的健走鞋</b>、排汗快乾衣物、水壺、零食、悠遊卡、雨傘，並依天氣帶防曬或防風外套。完整清單在 <a href="#" data-go="pack">要帶什麼</a>。行李要自己背，請簡便。'],
+   ['準備','要穿什麼、帶什麼？','重點：<b>合腳的健走鞋</b>、排汗快乾衣物、水壺、零食、悠遊卡、雨傘，並依天氣帶防曬或防風外套。完整清單在 <a href="#" data-go="pack">要帶什麼</a>。行李要自己背，請簡便。最後別忘了帶一顆<b>期待的心</b> 💛'],
    ['準備','費用有哪些？','交通自理；晚餐餐費平均分攤。']
   ];
   var lastCat='',html='';
