@@ -346,22 +346,23 @@ a{color:var(--blue);font-weight:800}
   /* groups */
   var GROUPS=[
    {n:'第一組',l:['敬勳哥','彥均'],m:['鈞翔','世鴻','家豪','濬煬','霖沼','偉中','明華','國雄','惠妮']},
-   {n:'第二組',l:['珊羽'],m:['盈欣','芝瑜','欣瑜','芷苓','小苓','小富','小偉','皓庭']},
-   {n:'第三組',l:['茗莉'],m:['敏甄','怡伶','莉莉','彩虹','慧曄','佳靜','意如','素茹','紋龍','志栩','停英','楹珊','怡真']},
-   {n:'第四組',l:['奉建'],m:['綺倫','雅卿','維縈','冠冠','世珍','寶順','美琪','志宏','水瀞']},
-   {n:'第五組',l:['品秀'],m:['玫伶','金雪','佳靜','武龍','銘偉','和忻','詠翔','政儒','姻因','惠玲']}
+   {n:'第二組',l:['珊羽'],m:['盈欣','芝榆','欣瑜','芷苓','小苓','小富','小偉']},
+   {n:'第三組',l:['茗莉'],m:['敏甄','怡玲','莉莉','彩紅','慧曄','楊佳靜','意如','素茹','紋龍','志栩','停英','楹珊','怡真']},
+   {n:'第四組',l:['奉建'],m:['綺倫','雅卿','維縈','冠毅','世珍','寶順','美琪','志宏','水瀞','皓庭']},
+   {n:'第五組',l:['品秀'],m:['玫伶','金雪','林佳靜','武龍','銘偉','和忻','詠翔','政儒','姻因','惠玲']}
   ];
-  var NAMES={"iqlofd5mc9":[0],"125l7e94kp7":[0],"9j3czkk2y9":[0],"109e7zkvojk":[0],"10llkh6nd5x":[0],"2btqfj5seez":[0],"1dtmibtyu3u":[0],"1tdb2hyqvxs":[0],"1dkxa2pj724":[0],"objudqdqgr":[1],"2dw3nx2093j":[1],"lnti25ea18":[1],"1uj2ytk4r5n":[1],"112zj3m6r0j":[1],"26cxedua6bv":[1],"toznonvudr":[1],"9vqegkatfp":[1],"9p13poipkr":[2],"ype1gu4n7d":[2],"j515uj5ky7":[2],"2b5v1ofrueo":[2],"18yojmsca9w":[2],"1e9h5y9llrr":[2,4],"1rrtiluhv22":[2],"1eqfpwalkam":[2],"zbioqy0z9w":[2],"lmi9t0zdxb":[2],"1oaebrb5vjp":[2],"12om182wfo9":[2],"2dfy36udvix":[2],"1ala8un6bwr":[3],"8bkot31s99":[3],"2dmaiifuysh":[3],"2bbv70nfyy2":[3],"1p1yzlpkn5c":[3],"1itril3pvmz":[3],"2gfzzup2mfp":[3],"dxq44g6aq8":[3],"1nx88jexizu":[3],"173yiug4ur":[4],"sfp6cv3f10":[4],"1r3pg2ip4zv":[4],"iwz7bvl9sz":[4],"ptv1n20jof":[4],"23p7b0abig3":[4],"12nwdfrl133":[4],"jw0paydhk0":[4],"191o2madswc":[4]};
-  function cyrb53(str){var h1=0xdeadbeef,h2=0x41c6ce57;for(var i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)}
   function stripSuf(s){return s.replace(/[哥姐姊]$/,'')}
+  function forms(m){var f=[m];if(m.length>=3)f.push(m.slice(1));return f}
   function findGroup(raw){
     var s=(raw||'').normalize('NFKC').replace(/\s+/g,'');
     if(!s)return null;
     var cands=[];for(var i=0;i<=s.length-2;i++)cands.push(s.slice(i));
     for(var c=0;c<cands.length;c++){
       var q=cands[c],hit=[],lead=[];
-      var h=cyrb53(q);if(NAMES[h])NAMES[h].forEach(function(g){if(hit.indexOf(g)<0)hit.push(g)});
-      GROUPS.forEach(function(g,gi){g.l.forEach(function(l){if(l===q||stripSuf(l)===q||stripSuf(l)===stripSuf(q)){if(lead.indexOf(gi)<0)lead.push(gi)}})});
+      GROUPS.forEach(function(g,gi){
+        g.m.forEach(function(m){if(forms(m).indexOf(q)>-1)hit.push({gi:gi,name:m})});
+        g.l.forEach(function(l){if(l===q||stripSuf(l)===q||stripSuf(l)===stripSuf(q)){if(lead.indexOf(gi)<0)lead.push(gi)}});
+      });
       if(hit.length||lead.length)return {hit:hit,lead:lead,q:q};
     }
     return {hit:[],lead:[],q:s,none:true};
@@ -372,8 +373,8 @@ a{color:var(--blue);font-weight:800}
     if(r.none){box.innerHTML='<div class="res no"><div class="big">找不到這個名字</div>請確認名字有沒有寫對，或試試只寫名字（不用寫姓）。<br>還是找不到，請到 <b>LINE 社群</b>告訴我們。</div>';return}
     var h='';
     if(r.lead.length&&!r.hit.length){var g=GROUPS[r.lead[0]];h='<div class="res"><div class="big">您是 '+g.n+' 的小組長</div><div class="lead">小組長：'+g.l.join('、')+'</div></div>'}
-    else if(r.hit.length===1){var g1=GROUPS[r.hit[0]];h='<div class="res"><div class="big">✅ 您是 '+g1.n+'</div><div class="lead">小組長：'+g1.l.join('、')+'</div></div>'}
-    else{h='<div class="res no"><div class="big">有 '+r.hit.length+' 位同名的朋友</div>請確認自己是哪一組：'+r.hit.map(function(gi){var g=GROUPS[gi];return '<div class="lead">'+g.n+'・小組長 '+g.l.join('、')+'</div>'}).join('')+'<div style="margin-top:6px">不確定的話，請到 LINE 社群詢問。</div></div>'}
+    else if(r.hit.length===1){var g1=GROUPS[r.hit[0].gi];h='<div class="res"><div class="big">✅ 您是 '+g1.n+'</div><div class="lead">小組長：'+g1.l.join('、')+'</div></div>'}
+    else{h='<div class="res no"><div class="big">有 '+r.hit.length+' 位同名的朋友</div>請確認自己是哪一位：'+r.hit.map(function(x){var g=GROUPS[x.gi];return '<div class="lead">'+x.name+'・'+g.n+'・小組長 '+g.l.join('、')+'</div>'}).join('')+'<div style="margin-top:6px">輸入完整姓名可以更準確；不確定請到 LINE 社群詢問。</div></div>'}
     box.innerHTML=h;
   }
   $('#gBtn').onclick=showGroup;
