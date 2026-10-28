@@ -140,6 +140,33 @@ details.gd .a{padding-top:12px}
 .chk.fun .hh{display:inline-block;margin-right:4px}
 .chk.fun input:checked + .x .hh{animation:beat .8s ease-in-out 3}
 @keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.5)}60%{transform:scale(.95)}}
+.tb{display:inline-block;min-width:2.1em;text-align:center;color:#fff;font-weight:900;font-size:.78rem;border-radius:999px;padding:0 7px;margin-left:6px;line-height:1.6}
+.t1{background:#C0392B}.t2{background:#2874A6}.t3{background:#1E8449}.t4{background:#B9770E}.t5{background:#7D3C98}.t6{background:#148F77}.t7{background:#5D6D7E}.t8{background:#BA4A00}
+.nm.off{background:#E9E6DC;color:#8A857A;font-weight:700}
+.nm small{font-weight:700;font-size:.72rem;color:var(--sub);margin-left:4px}
+.legend{background:#fff;border:2px dashed var(--line);border-radius:14px;padding:10px 12px;margin:8px 0;font-size:.9rem}
+.res .lead.off{color:var(--sub)}
+.demo{background:#B8321F;color:#fff;font-weight:900;text-align:center;padding:8px 10px;font-size:.9rem;position:relative;z-index:30}
+.cdtip{margin-top:8px;text-align:center;font-weight:700;color:var(--sub);font-size:.95rem}
+.alertbox{margin-top:12px;border-radius:16px;border:3px solid var(--orange);background:#fff;padding:10px 12px;animation:in .4s ease}
+.alertbox .ah{font-weight:900;color:var(--brown);font-size:1.1rem;margin-bottom:2px}
+.alertbox .chk{padding:10px 2px;border-bottom:2px dashed var(--line);min-height:56px}
+.alertbox .chk:last-child{border-bottom:0}
+.alertbox .chk .x{font-weight:800;font-size:1.02rem}
+.alertbox .chk .x small{font-weight:600;font-size:.85rem}
+.todaybox{margin-top:12px;border-radius:16px;border:3px solid var(--green);background:var(--green2);padding:12px 14px;animation:in .4s ease;font-size:1.05rem}
+.todaybox .th{font-weight:900;color:var(--green);font-size:1.15rem}
+.todaybox .tt{display:block;font-size:1.45rem;font-weight:900;color:var(--ink);margin:4px 0;line-height:1.3}
+.todaybox .tt small{font-size:.95rem;font-weight:700;color:var(--sub)}
+.tbtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.tbtn{min-width:0;border:4px solid transparent;border-radius:18px;color:#fff;font:inherit;font-weight:900;font-size:1.3rem;white-space:nowrap;min-height:104px;line-height:1.3;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+.tbtn small{display:block;font-size:.8rem;font-weight:700;opacity:.95}
+.tbtn.on{border-color:var(--ink);transform:translateY(2px);box-shadow:none}
+.tshow{border:3px solid var(--line);border-radius:18px;padding:12px;background:#fff;animation:in .3s ease}
+.tshow .th{font-size:1.4rem;font-weight:900;margin-bottom:6px}
+.tbtn small.cz{display:inline-block;margin-top:3px;background:rgba(255,255,255,.28);border-radius:999px;padding:1px 10px;font-size:.82rem}
+.tshow .chair{display:inline-block;background:#FFF3C4;border:2px solid #E0A800;color:#6B4E00;border-radius:12px;padding:4px 14px;margin:2px 0 8px;font-size:1.1rem}
+.nm.ch{outline:3px solid #E0A800;background:#FFF3C4;color:#6B4E00}
 footer{text-align:center;color:var(--sub);font-size:.85rem;margin:22px 0 4px}
 .hills{height:90px;margin-top:20px}
 .hills svg{width:100%;height:100%;display:block}
@@ -172,11 +199,13 @@ a{color:var(--blue);font-weight:800}
     <div class="row"><span class="ic">📍</span><div><b>牡丹車站・大廳</b><br>下午 <b class="red">2:44</b> 到，<b class="red">3:00</b> 準時出發</div></div>
     <div class="row"><span class="ic">🍽</span><div>晚餐：瑞芳灶腳，下午 <b>5:30</b></div></div>
     <div class="count" id="cd"></div>
+    <div id="cdExtra"></div>
   </div>
 
   <div class="ribbon br" style="margin-top:8px">想看什麼？點一下</div>
   <div class="menu">
-    <button class="mbtn o" data-go="group"><span class="e">👥</span><span>我是哪一組？<small>輸入名字，就知道自己是哪一組</small></span></button>
+    <button class="mbtn o" data-go="group"><span class="e">🔍</span><span>查組別和桌次<small>輸入名字，查哪一組、坐哪桌</small></span></button>
+    <button class="mbtn o" id="tblBtn" data-go="tables" style="display:none"><span class="e">🍽</span><span>看各桌名單<small>點桌號，看同桌有誰</small></span></button>
     <button class="mbtn" data-go="route"><span class="e">🚶</span><span>今天怎麼走<small>幾點到哪裡、路上注意什麼</small></span></button>
     <button class="mbtn" data-go="train"><span class="e">🚆</span><span>搭火車時間<small>去程、回家的班次</small></span></button>
     <button class="mbtn" data-go="pack"><span class="e">🎒</span><span>要帶什麼<small>可以一項一項打勾</small></span></button>
@@ -196,15 +225,28 @@ a{color:var(--blue);font-weight:800}
 <!-- ===== 分組 ===== -->
 <section class="view" id="group">
   <div class="card" style="margin-top:16px">
-    <div class="ribbon br">我是哪一組？</div>
+    <div class="ribbon br">查組別和桌次</div>
     <div>請輸入<b>自己的名字</b>（寫姓名或只寫名字都可以），再按「查詢」。</div>
     <div class="sbox"><input id="gIn" type="text" placeholder="例如：小明" autocomplete="off" aria-label="輸入名字"><button id="gBtn">查詢</button></div>
     <div id="gRes"></div>
   </div>
   <div class="sec">各組名單（點一下打開）</div>
   <div style="font-size:.9rem;color:var(--sub);margin-bottom:6px">想知道朋友在哪一組，可以在這裡找。橘色是小組長。</div>
+  <div class="legend" id="legend" style="display:none">名字後面的<b>彩色數字</b>＝晚餐桌號；<b style="color:#8A857A">灰色名字</b>＝本次不參加晚餐。</div>
   <div id="gList"></div>
+  <div id="tWrap" style="display:none"><button class="btn" data-go="tables" style="background:var(--brown)">🍽 看各桌名單（同桌有誰）</button></div>
   <div class="note">找不到自己的名字、或不確定是哪一組，請到 <b>LINE 社群</b>告訴我們，我們會幫您確認。</div>
+</section>
+
+<!-- ===== 桌次 ===== -->
+<section class="view" id="tables">
+  <div class="card" style="margin-top:16px">
+    <div class="ribbon br">晚餐桌次</div>
+    <div>晚餐在<b>瑞芳灶腳</b>，圓桌一桌約 10 人。<b>點下面的桌號</b>，就看得到同桌有誰。</div>
+    <div class="tbtns" id="tBtns"></div>
+    <div id="tShow"><div class="note" style="margin-bottom:0">👆 請先點上面的桌號。</div></div>
+  </div>
+  <div class="note">名單裡<b>沒有桌號</b>的朋友，是本次不參加晚餐。<br>想查自己坐哪一桌：<a href="#" data-go="group">👉 查組別和桌次</a></div>
 </section>
 
 <!-- ===== 行程 ===== -->
@@ -332,7 +374,7 @@ a{color:var(--blue);font-weight:800}
   function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 
   /* views */
-  var TITLES={home:'',group:'我是哪一組？',route:'今天怎麼走',train:'搭火車時間',pack:'要帶什麼',dinner:'晚餐和菜單',qa:'常見問題'};
+  var TITLES={home:'',group:'組別和桌次',tables:'晚餐桌次',route:'今天怎麼走',train:'搭火車時間',pack:'要帶什麼',dinner:'晚餐和菜單',qa:'常見問題'};
   function go(id){
     if(!TITLES.hasOwnProperty(id))id='home';
     $$('.view').forEach(function(v){v.classList.toggle('on',v.id===id)});
@@ -345,23 +387,36 @@ a{color:var(--blue);font-weight:800}
 
   /* groups */
   var GROUPS=[
-   {n:'第一組',l:['敬勳哥','彥均'],m:['鈞翔','世鴻','家豪','濬煬','霖沼','偉中','明華','國雄','惠妮','裕德','佩怡']},
-   {n:'第二組',l:['珊羽'],m:['盈欣','芝榆','欣瑜','芷苓','小苓','小富','小偉']},
-   {n:'第三組',l:['茗莉'],m:['敏甄','怡玲','莉莉','彩紅','慧曄','楊佳靜','意如','素茹','紋龍','志栩','停英','楹珊','怡真','易璇','韻安','智堯','玉琪','喆亘']},
-   {n:'第四組',l:['奉建'],m:['綺倫','雅卿','維縈','冠毅','世珍','寶順','美琪','志宏','水瀞','皓庭']},
-   {n:'第五組',l:['品秀'],m:['玫伶','金雪','林佳靜','武龍','銘偉','和忻','詠翔','政儒','姻因','惠玲']}
+   {n:'第一組',l:['彥均'],m:['偉中', '明華', '國雄', '惠妮', '裕德', '佩怡']},
+   {n:'第二組',l:['敬勳哥'],m:['鈞翔', '世鴻', '家豪', '濬煬', '霖沼']},
+   {n:'第三組',l:['珊羽'],m:['盈欣', '芝榆', '欣瑜', '芷苓', '小苓', '小富', '小偉']},
+   {n:'第四組',l:['茗莉'],m:['怡玲', '慧曄', '意如', '素茹', '易璇', '韻安', '智堯', '玉琪', '喆亘']},
+   {n:'第五組',l:['彩紅'],m:['敏甄', '莉莉', '紋龍', '志栩', '停英', '楹珊', '怡真', 'CC', '楊佳靜']},
+   {n:'第六組',l:['奉建'],m:['綺倫', '雅卿', '維縈', '冠毅', '世珍', '寶順', '美琪', '志宏', '水瀞', '皓庭']},
+   {n:'第七組',l:['品秀'],m:['玫伶', '金雪', '林佳靜', '武龍', '銘偉', '和忻', '詠翔', '政儒', '姻因', '惠玲']}
   ];
+  var TABLE={"彥均": 1, "偉中": 1, "明華": 1, "國雄": 1, "惠妮": 1, "裕德": 1, "佩怡": 1, "敬勳哥": 2, "鈞翔": 1, "世鴻": 2, "家豪": 1, "濬煬": 2, "霖沼": 2, "珊羽": 4, "盈欣": 5, "芝榆": 4, "小苓": 4, "小富": 4, "小偉": 4, "茗莉": 4, "素茹": 3, "易璇": 4, "韻安": 4, "智堯": 4, "玉琪": 4, "喆亘": 4, "彩紅": 3, "敏甄": 3, "停英": 3, "楹珊": 3, "怡真": 3, "CC": 3, "楊佳靜": 3, "奉建": 2, "綺倫": 2, "雅卿": 2, "維縈": 2, "冠毅": 2, "品秀": 5, "玫伶": 5, "金雪": 5, "林佳靜": 5, "政儒": 5, "姻因": 5, "惠玲": 5};
+  var CHAIR={1:'彥均',2:'奉建',3:'彩紅',4:'茗莉',5:'品秀'};
+  var HAS_T=false;for(var k in TABLE){HAS_T=true;break}
   function stripSuf(s){return s.replace(/[哥姐姊]$/,'')}
-  function forms(m){var f=[m];if(m.length>=3)f.push(m.slice(1));return f}
+  function forms(m){m=m.toLowerCase();var f=[m];if(m.length>=3)f.push(m.slice(1));return f}
+  function tbCls(n){return 't'+(((n-1)%8)+1)}
+  function tableLine(name){
+    if(!HAS_T)return '';
+    var n=TABLE[name];
+    if(!n)return '<div class="lead off">本次不參加晚餐</div>';
+    var ch=CHAIR[n];
+    return '<div class="lead">🍽 晚餐：第 '+n+' 桌</div>'+(ch?'<div class="lead" style="font-size:1.05rem">👑 桌長：'+ch+(ch===name?'（就是您！）':'')+'</div>':'');
+  }
   function findGroup(raw){
-    var s=(raw||'').normalize('NFKC').replace(/\s+/g,'');
+    var s=(raw||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase();
     if(!s)return null;
     var cands=[];for(var i=0;i<=s.length-2;i++)cands.push(s.slice(i));
     for(var c=0;c<cands.length;c++){
       var q=cands[c],hit=[],lead=[];
       GROUPS.forEach(function(g,gi){
         g.m.forEach(function(m){if(forms(m).indexOf(q)>-1)hit.push({gi:gi,name:m})});
-        g.l.forEach(function(l){if(l===q||stripSuf(l)===q||stripSuf(l)===stripSuf(q)){if(lead.indexOf(gi)<0)lead.push(gi)}});
+        g.l.forEach(function(l0){var l=l0.toLowerCase();if(l===q||stripSuf(l)===q||stripSuf(l)===stripSuf(q))lead.push({gi:gi,name:l0})});
       });
       if(hit.length||lead.length)return {hit:hit,lead:lead,q:q};
     }
@@ -372,14 +427,34 @@ a{color:var(--blue);font-weight:800}
     if(!r){box.innerHTML='<div class="res no"><div class="big">請先輸入名字</div></div>';return}
     if(r.none){box.innerHTML='<div class="res no"><div class="big">找不到這個名字</div>請確認名字有沒有寫對，或試試只寫名字（不用寫姓）。<br>還是找不到，請到 <b>LINE 社群</b>告訴我們。</div>';return}
     var h='';
-    if(r.lead.length&&!r.hit.length){var g=GROUPS[r.lead[0]];h='<div class="res"><div class="big">您是 '+g.n+' 的小組長</div><div class="lead">小組長：'+g.l.join('、')+'</div></div>'}
-    else if(r.hit.length===1){var g1=GROUPS[r.hit[0].gi];h='<div class="res"><div class="big">✅ 您是 '+g1.n+'</div><div class="lead">小組長：'+g1.l.join('、')+'</div></div>'}
-    else{h='<div class="res no"><div class="big">有 '+r.hit.length+' 位同名的朋友</div>請確認自己是哪一位：'+r.hit.map(function(x){var g=GROUPS[x.gi];return '<div class="lead">'+x.name+'・'+g.n+'・小組長 '+g.l.join('、')+'</div>'}).join('')+'<div style="margin-top:6px">輸入完整姓名可以更準確；不確定請到 LINE 社群詢問。</div></div>'}
+    if(r.lead.length&&!r.hit.length){var L=r.lead[0],g=GROUPS[L.gi];h='<div class="res"><div class="big">您是 '+g.n+' 的小組長</div><div class="lead">小組長：'+g.l.join('、')+'</div>'+tableLine(L.name)+'</div>'}
+    else if(r.hit.length===1){var H=r.hit[0],g1=GROUPS[H.gi];h='<div class="res"><div class="big">✅ 您是 '+g1.n+'</div><div class="lead">小組長：'+g1.l.join('、')+'</div>'+tableLine(H.name)+'</div>'}
+    else{h='<div class="res no"><div class="big">有 '+r.hit.length+' 位同名的朋友</div>請確認自己是哪一位：'+r.hit.map(function(x){var g=GROUPS[x.gi];return '<div class="lead">'+x.name+'・'+g.n+'・小組長 '+g.l.join('、')+(HAS_T?(TABLE[x.name]?'・第 '+TABLE[x.name]+' 桌（桌長 '+(CHAIR[TABLE[x.name]]||'')+'）':'・不用餐'):'')+'</div>'}).join('')+'<div style="margin-top:6px">輸入完整姓名可以更準確；不確定請到 LINE 社群詢問。</div></div>'}
     box.innerHTML=h;
   }
   $('#gBtn').onclick=showGroup;
   $('#gIn').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();showGroup();this.blur()}});
-  $('#gList').innerHTML=GROUPS.map(function(g){return '<details class="q gd"><summary><span class="gn">'+g.n+'</span><span class="gl">小組長：'+g.l.join('、')+'<small>成員 '+g.m.length+' 人・點開看名單</small></span></summary><div class="a">'+g.l.map(function(x){return '<span class="nm ld">'+x+'</span>'}).join('')+g.m.map(function(x){return '<span class="nm">'+x+'</span>'}).join('')+'</div></details>'}).join('');
+  function chip(name,isLead){
+    var n=TABLE[name],cls='nm'+(isLead?' ld':'')+((HAS_T&&!n)?' off':'');
+    return '<span class="'+cls+'">'+name+(n?'<span class="tb '+tbCls(n)+'">'+n+'桌</span>':'')+'</span>';
+  }
+  $('#gList').innerHTML=GROUPS.map(function(g){
+    var cnt=0;if(HAS_T){g.l.concat(g.m).forEach(function(x){if(TABLE[x])cnt++})}
+    return '<details class="q gd"><summary><span class="gn">'+g.n+'</span><span class="gl">小組長：'+g.l.join('、')+'<small>共 '+(g.l.length+g.m.length)+' 人'+(HAS_T?'・晚餐 '+cnt+' 人':'')+'・點開看名單</small></span></summary><div class="a">'+g.l.map(function(x){return chip(x,true)}).join('')+g.m.map(function(x){return chip(x,false)}).join('')+'</div></details>'}).join('');
+  var BY={};
+  GROUPS.forEach(function(g){g.l.concat(g.m).forEach(function(x){var n=TABLE[x];if(n){(BY[n]=BY[n]||[]).push({name:x,g:g.n.replace('組',''),lead:g.l.indexOf(x)>-1})}})});
+  var TKEYS=Object.keys(BY).map(Number).sort(function(a,b){return a-b});
+  function showTable(n){
+    $$('#tBtns .tbtn').forEach(function(b){b.classList.toggle('on',+b.getAttribute('data-n')===n)});
+    var arr=BY[n]||[];
+    $('#tShow').innerHTML='<div class="tshow"><div class="th">🍽 第 '+n+' 桌・共 '+arr.length+' 人</div>'+(CHAIR[n]?'<div class="chair">👑 桌長：<b>'+CHAIR[n]+'</b></div>':'')+arr.map(function(x){var isC=CHAIR[n]===x.name;return '<span class="nm'+(x.lead?' ld':'')+(isC?' ch':'')+'">'+(isC?'👑 ':'')+x.name+'<small>'+x.g+'組</small></span>'}).join('')+'<div style="font-size:.85rem;color:var(--sub);margin-top:6px">名字後面的小字是組別；橘色是小組長。</div></div>';
+  }
+  if(HAS_T){
+    $('#legend').style.display='block';$('#tWrap').style.display='block';$('#tblBtn').style.display='';
+    $('#tBtns').innerHTML=TKEYS.map(function(n){return '<button class="tbtn '+tbCls(n)+'" data-n="'+n+'">第 '+n+' 桌<small>'+BY[n].length+' 人</small>'+(CHAIR[n]?'<small class="cz">👑 桌長 '+CHAIR[n]+'</small>':'')+'</button>'}).join('');
+    $$('#tBtns .tbtn').forEach(function(b){b.onclick=function(){showTable(+b.getAttribute('data-n'))}});
+    var gi=document.querySelector('#group .card div:nth-child(2)');if(gi)gi.innerHTML='請輸入<b>自己的名字</b>（寫姓名或只寫名字都可以），再按「查詢」，就知道<b>哪一組、晚餐坐哪桌</b>。';
+  }
 
   /* font size */
   function setFs(k){
@@ -391,13 +466,42 @@ a{color:var(--blue);font-weight:800}
   setFs(lsGet('fs','m'));
 
   /* countdown */
-  (function(){
-    var now=new Date(),d0=new Date(now.getFullYear(),now.getMonth(),now.getDate()),ev=new Date(2026,10,7),diff=Math.round((ev-d0)/86400000),c=$('#cd');
-    if(diff>1)c.innerHTML='還有 <span>'+diff+'</span> 天';
-    else if(diff===1)c.innerHTML='<span>明天</span>就出發囉！';
-    else if(diff===0)c.innerHTML='<span>就是今天！</span>';
-    else c.innerHTML='活動已結束，謝謝您 🌿';
-  })();
+  var OVERRIDE_MIN=null;
+  function todayDate(ds){
+    var m=(ds||(location.search||'')).match(/(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{1,2}):(\d{2}))?/);
+    if(m){OVERRIDE_MIN=(m[4]!==undefined)?(+m[4]*60+ +m[5]):12*60;return new Date(+m[1],+m[2]-1,+m[3])}
+    OVERRIDE_MIN=null;
+    var n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate());
+  }
+  function nowMin(){if(OVERRIDE_MIN!==null)return OVERRIDE_MIN;var n=new Date();return n.getHours()*60+n.getMinutes()}
+  var rm=lsGet('rm',{});
+  function renderCountdown(ds,tm){
+    var ev=new Date(2026,10,7),diff=Math.round((ev-todayDate(ds))/86400000),c=$('#cd'),x=$('#cdExtra'),h='';
+    if(tm){var mm=String(tm).match(/(\d{1,2}):(\d{2})/);if(mm)OVERRIDE_MIN=+mm[1]*60+ +mm[2]}
+    var over=(diff<0)||(diff===0&&nowMin()>=18*60+30);
+    if(diff>2){
+      c.innerHTML='還有 <span>'+diff+'</span> 天';
+      h='<div class="cdtip">'+(diff>=7?'每天走一點路，腳力練起來 👟':'看看天氣預報，鞋子先試穿一下 ☀️')+'</div>';
+    }else if(diff===2||diff===1){
+      c.innerHTML=diff===2?'還有 <span>2</span> 天':'<span>明天</span>就出發囉！';
+      h='<div class="alertbox"><div class="ah">⏰ 最後倒數，請確認：</div>'
+       +'<label class="chk"><input type="checkbox" data-r="a"'+(rm.a?' checked':'')+'><span class="x">東西有帶齊嗎？<small><a href="#" data-go="pack">👉 看打包清單</a></small></span></label>'
+       +'<label class="chk"><input type="checkbox" data-r="b"'+(rm.b?' checked':'')+'><span class="x">有跟小組確認會面時間和地點嗎？<small><a href="#" data-go="group">👉 查自己的組別</a></small></span></label>'
+       +'<div id="rmOk" class="ok" style="display:none;margin:8px 0 0">🎉 都確認好了，明天山裡見！</div></div>';
+    }else if(diff===0&&!over){
+      c.innerHTML='<span>🎉 就是今天！</span>';
+      h='<div class="todaybox"><div class="th">🚆 今天請搭乘區間車</div><span class="tt">區間 4188<br><small>台北</small> 13:34 出發<br><small>牡丹</small> 14:44 抵達</span>14:44 到牡丹車站大廳集合，15:00 準時出發。<br><a href="#" data-go="train">👉 看完整火車時間</a></div>'
+       +'<div class="cdtip">路上慢慢走，一起欣賞風景 🌿</div>';
+    }else{
+      c.innerHTML='好開心可以與大家一起健行 🌿<br>請關注社群，<br>期待下一個活動見！';h='';
+    }
+    x.innerHTML=h;
+    $$('#cdExtra input[data-r]').forEach(function(i){i.onchange=function(){rm[i.getAttribute('data-r')]=i.checked;lsSet('rm',rm);chkRm()}});
+    chkRm();
+    function chkRm(){var o=$('#rmOk');if(o)o.style.display=(rm.a&&rm.b)?'block':'none'}
+  }
+  window.__cd=renderCountdown;
+  renderCountdown();
 
   /* pack list */
   var PACK=[
@@ -435,7 +539,7 @@ a{color:var(--blue);font-weight:800}
 
   /* QA */
   var QA=[
-   ['出發集合','我是哪一組？','請回到首頁按「我是哪一組？」，輸入自己的名字就查得到。找不到或不確定，請到 LINE 社群詢問。 <a href="#" data-go="group">去查自己的組別</a>'],
+   ['出發集合','我是哪一組？晚餐坐哪一桌？','請回到首頁按「查組別和桌次」，輸入自己的名字就查得到。找不到或不確定，請到 LINE 社群詢問。 <a href="#" data-go="group">去查組別和桌次</a>'],
    ['出發集合','幾點、在哪裡集合？','下午 <b>2:44</b> 到牡丹車站<b>大廳</b>集合，<b>3:00</b> 準時出發。'],
    ['出發集合','為什麼一定要準時出發？','三貂嶺隧道有申請入場的時段，3:00 準時出發才能趕上。若要遲到請先讓我們知道。'],
    ['出發集合','我可能會遲到，怎麼辦？','<ul><li>請主動聯絡帶您來的朋友，並且<b>在 LINE 社群裡說一聲</b>。</li><li>最保險的方式：和帶您來的朋友約在台北車站，<b>提早 30 分鐘</b>碰面，一起搭火車（建議班次：區間 4188，13:34 台北發車、14:44 到牡丹）。</li></ul>'],
