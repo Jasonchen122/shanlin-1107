@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-title" content="山林慢遊">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="apple-touch-icon.png">
 <title>山林慢遊 &amp; 美食饗宴｜活動資訊</title>
 <style>
 :root{
@@ -201,6 +204,8 @@ details.gd .a{padding-top:12px}
 .rctl button{flex:1;border:0;border-radius:14px;background:var(--green);color:#fff;font:inherit;font-weight:900;font-size:1.05rem;min-height:56px}
 .rctl span{font-weight:900;color:var(--sub);min-width:4.5rem;text-align:center}
 .rhint{text-align:center;color:var(--sub);font-size:.8rem;margin:2px 0 6px}
+.reloadbtn{border:3px solid var(--green);background:var(--paper);color:var(--green);border-radius:16px;font:inherit;font-weight:900;font-size:1rem;min-height:56px;padding:8px 22px;box-shadow:0 3px 0 var(--green)}
+.reloadbtn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--green)}
 footer{text-align:center;color:var(--sub);font-size:.85rem;margin:22px 0 4px}
 .hills{height:90px;margin-top:20px}
 .hills svg{width:100%;height:100%;display:block}
@@ -458,7 +463,8 @@ a{color:var(--blue);font-weight:800}
   <div id="qaBox"></div>
 </section>
 
-<footer id="ver">更新時間：2026/10/31 20:28<br>版本 1031-2028</footer>
+<div style="text-align:center;margin:26px 0 0"><button id="reloadBtn" class="reloadbtn">🔄 重新整理，看最新內容</button></div>
+<footer id="ver">更新時間：2026/10/31 20:49<br>版本 1031-2049</footer>
 </div>
 
 <script>
@@ -602,6 +608,7 @@ a{color:var(--blue);font-weight:800}
     function go(d){var i=Math.min(n-1,Math.max(0,idx()+d));car.scrollTo({left:i*wd(),behavior:'smooth'})}
     $('#rpv').onclick=function(){go(-1)};$('#rnx').onclick=function(){go(1)};
   })();
+  (function(){var rb=$('#reloadBtn');if(rb)rb.onclick=function(){var h=location.hash||'';location.replace(location.pathname+'?r='+Date.now()+h)}})();
   window.__cd=renderCountdown;
   renderCountdown();
 
