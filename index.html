@@ -220,6 +220,32 @@ details.gd .a{padding-top:12px}
 .mph{width:100%;display:block;border-radius:14px;border:3px solid #fff;box-shadow:0 2px 8px rgba(70,50,10,.25)}
 .mcap{font-size:.8rem;color:var(--sub);margin:2px 0 10px}
 .res .meetgo{display:inline-block;margin-top:8px;border:0;background:#7D3C98;color:#fff;font:inherit;font-weight:900;border-radius:999px;padding:8px 18px;font-size:1rem;min-height:44px}
+#wxCard[hidden]{display:none!important}
+.wxt{width:100%;border-collapse:collapse;font-size:1.05rem}
+.wxt th{background:var(--blue);color:#fff;padding:8px 6px;font-size:1rem}.wxt th:first-child{border-radius:12px 0 0 0}.wxt th:last-child{border-radius:0 12px 0 0}
+.wxt td{padding:9px 6px;border-bottom:2px dashed var(--line);text-align:center;font-weight:800}.wxt td:first-child{text-align:left;font-weight:700;color:var(--sub);font-size:.95rem}
+.wxsrc{font-size:.78rem;color:var(--sub);margin-top:6px}
+.wxlive{display:block;margin-top:10px;text-align:center;background:var(--blue);color:#fff;font-weight:900;font-size:1.15rem;line-height:1.35;border-radius:16px;padding:12px;text-decoration:none;box-shadow:0 3px 0 #17435f}.wxlive small{font-weight:700;font-size:.85rem;opacity:.95}
+.wxhead{display:inline-block;background:var(--orange);color:#fff;font-weight:900;font-size:1.05rem;padding:5px 16px;border-radius:20px;margin:16px 0 8px}
+.wxsky{position:relative;height:190px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#8fa6b8 0%,#b9c9d6 55%,#d6e0e8 100%);transition:background 1.6s ease;border:3px solid #fff;box-shadow:0 2px 8px rgba(70,50,10,.25)}
+.wxsky.clear{background:linear-gradient(180deg,#5fb8f0 0%,#a6dcf7 60%,#e6f6ff 100%)}
+.wxsun{position:absolute;right:42px;top:30px;width:78px;height:78px;border-radius:50%;background:radial-gradient(circle,#FFE680 0,#F7B733 70%);opacity:.35;transform:scale(.7);transition:all 1.6s ease}
+.wxsky.clear .wxsun{opacity:1;transform:scale(1.1);animation:wxglow 3s ease-in-out infinite}
+@keyframes wxglow{0%,100%{box-shadow:0 0 28px 10px rgba(255,214,90,.55)}50%{box-shadow:0 0 52px 22px rgba(255,214,90,.85)}}
+.wxcloud{position:absolute;font-size:3.6rem;line-height:1;filter:drop-shadow(0 2px 3px rgba(0,0,0,.12));transition:transform 2.2s ease,opacity 2.2s ease}
+.wxc1{left:10%;top:34px;animation:wxd1 9s ease-in-out infinite}.wxc2{left:48%;top:12px;font-size:4.4rem;animation:wxd2 12s ease-in-out infinite}.wxc3{left:72%;top:70px;font-size:3rem;animation:wxd1 10s ease-in-out infinite reverse}
+@keyframes wxd1{0%,100%{margin-left:0}50%{margin-left:22px}}@keyframes wxd2{0%,100%{margin-left:0}50%{margin-left:-26px}}
+.wxsky.clear .wxc1{transform:translateX(-150%);opacity:0}.wxsky.clear .wxc2,.wxsky.clear .wxc3{transform:translateX(160%);opacity:0}
+.wxhill{position:absolute;left:-10%;right:-10%;bottom:-40px;height:90px;background:#5F9A5A;border-radius:50% 50% 0 0}.wxh2{background:#3F6B2F;bottom:-52px;left:20%;right:-30%}
+.wxfloat{position:absolute;bottom:20px;font-size:1.3rem;opacity:0}
+.wxsky.clear .wxfloat{animation:wxrise 3.2s ease-out infinite}
+@keyframes wxrise{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-150px);opacity:0}}
+.wxmsg{margin:10px 0 0;border-radius:14px;padding:10px 12px;font-weight:800;font-size:1rem;background:var(--blue2);border-left:7px solid var(--blue);min-height:4.4rem;line-height:1.6}
+.wxmsg.clear{background:var(--green2);border-left-color:var(--green)}
+.wxbtn{display:block;width:100%;border:0;border-radius:16px;background:var(--orange);color:#fff;font:inherit;font-weight:900;font-size:1.2rem;min-height:64px;margin-top:10px;box-shadow:0 3px 0 #9b5410}
+.wxbtn:active{transform:translateY(2px);box-shadow:0 1px 0 #9b5410}
+.wxcnt{text-align:center;font-size:.8rem;color:var(--sub);margin-top:6px}
+@media (prefers-reduced-motion:reduce){.wxcloud,.wxsun,.wxfloat{animation:none!important}}
 footer{text-align:center;color:var(--sub);font-size:.85rem;margin:22px 0 4px}
 .hills{height:90px;margin-top:20px}
 .hills svg{width:100%;height:100%;display:block}
@@ -256,6 +282,24 @@ a{color:var(--blue);font-weight:800}
     <div class="row"><span class="ic">🍽</span><div>晚餐：瑞芳灶腳，下午 <b>5:30</b></div></div>
     <div class="count" id="cd"></div>
     <div id="cdExtra"></div>
+  </div>
+
+  <div class="card wxcard" id="wxCard" hidden>
+    <div class="ribbon" style="background:var(--blue)">🌦 11/7 三貂嶺天氣參考</div>
+    <table class="wxt">
+      <tr><th></th><th>15:00<br><small>出發時段</small></th><th>18:00<br><small>晚餐時段</small></th></tr>
+      <tr><td>🌡 氣溫</td><td>22°C</td><td>22°C</td></tr>
+      <tr><td>🧍 體感</td><td>21°C</td><td>20°C</td></tr>
+      <tr><td>🌬 風</td><td>4 級<br><small>偏東風</small></td><td>4 級<br><small>偏東風</small></td></tr>
+      <tr><td>😊 舒適度</td><td>舒適</td><td>舒適</td></tr>
+    </table>
+    <div class="wxsrc">氣溫、體感是氣象署 11/6 查詢的預報參考，天氣會變動。</div>
+    <a class="wxlive" href="https://www.cwa.gov.tw/V8/C/L/Mountain/Mountain.html?PID=D114" target="_blank" rel="noopener">☔ 降雨與最新天氣<br><small>點這裡看氣象署最新預報</small></a>
+    <div class="wxhead">🌤 一起為好天氣加油</div>
+    <div class="wxsky" id="wxSky"><div class="wxsun"></div><div class="wxhill"></div><div class="wxhill wxh2"></div><div class="wxcloud wxc1">☁️</div><div class="wxcloud wxc2">☁️</div><div class="wxcloud wxc3">☁️</div><div id="wxFloats"></div></div>
+    <div class="wxmsg" id="wxMsg"></div>
+    <button class="wxbtn" id="wxBtn"></button>
+    <div class="wxcnt" id="wxCnt"></div>
   </div>
 
   <button class="rainblock" data-go="rain"><span class="e">☔</span><span class="tx">下雨怎麼辦？<small>備案路線的風景更好，點這裡看</small></span><span class="go">看 ▶</span></button>
@@ -507,7 +551,7 @@ a{color:var(--blue);font-weight:800}
 </section>
 
 <div style="text-align:center;margin:26px 0 0"><button id="reloadBtn" class="reloadbtn">🔄 重新整理，看最新內容</button></div>
-<footer id="ver">更新時間：2026/11/05 10:23<br>版本 1105-1023</footer>
+<footer id="ver">更新時間：2026/11/06 10:24<br>版本 1106-1024</footer>
 </div>
 
 <script>
@@ -534,11 +578,11 @@ a{color:var(--blue);font-weight:800}
    {n:'第二組',l:['敬勳'],m:['鈞翔', '世鴻', '家豪', '霖沼']},
    {n:'第三組',l:['珊羽'],m:['盈欣', '芝榆', '欣瑜', '芷苓', '小玲', '小富', '小偉']},
    {n:'第四組',l:['茗莉'],m:['怡玲', '慧曄', '素茹', '易璇', '韻安', '智堯', '玉琪', '喆亘']},
-   {n:'第五組',l:['彩紅'],m:['敏甄', '莉莉', '紋龍', '志栩', '停英', '楹珊', '怡真', 'CC', '彩玲', '苡恩']},
+   {n:'第五組',l:['彩紅'],m:['敏甄', '莉莉', '紋龍', '志栩', '停英', '楹珊', '怡真', 'CC', '柏媛', '苡恩']},
    {n:'第六組',l:['奉建'],m:['綺倫', '雅卿', '維縈', '冠毅', '世珍', '寶順', '美琪', '志宏', '水瀞', '皓庭']},
    {n:'第七組',l:['品秀'],m:['玫伶', '金雪', '佳靜', '武龍', '銘偉', '和忻', '詠翔', '政儒', '姻因', '惠玲']}
   ];
-  var TABLE={"彥均": 1, "偉中": 1, "明華": 1, "國雄": 1, "惠妮": 1, "裕德": 1, "佩怡": 1, "敬勳": 2, "鈞翔": 1, "世鴻": 2, "家豪": 1, "霖沼": 2, "珊羽": 4, "盈欣": 5, "芝榆": 4, "小玲": 4, "小富": 4, "小偉": 4, "茗莉": 4, "素茹": 3, "易璇": 4, "韻安": 4, "智堯": 4, "玉琪": 4, "喆亘": 4, "彩紅": 3, "敏甄": 3, "停英": 3, "楹珊": 3, "怡真": 3, "CC": 3, "彩玲": 3, "苡恩": 3, "奉建": 2, "綺倫": 2, "雅卿": 2, "維縈": 2, "冠毅": 2, "品秀": 5, "玫伶": 5, "金雪": 5, "佳靜": 5, "政儒": 5, "姻因": 5, "惠玲": 5};
+  var TABLE={"彥均": 1, "偉中": 1, "明華": 1, "國雄": 1, "惠妮": 1, "裕德": 1, "佩怡": 1, "敬勳": 2, "鈞翔": 1, "世鴻": 2, "家豪": 1, "霖沼": 2, "珊羽": 4, "盈欣": 5, "芝榆": 4, "小玲": 4, "小富": 4, "小偉": 4, "茗莉": 4, "素茹": 3, "易璇": 4, "韻安": 4, "智堯": 4, "玉琪": 4, "喆亘": 4, "彩紅": 3, "敏甄": 3, "停英": 3, "楹珊": 3, "怡真": 3, "CC": 3, "柏媛": 3, "苡恩": 3, "奉建": 2, "綺倫": 2, "雅卿": 2, "維縈": 2, "冠毅": 2, "品秀": 5, "玫伶": 5, "金雪": 5, "佳靜": 5, "政儒": 5, "姻因": 5, "惠玲": 5};
   var CHAIR={1:'彥均',2:'奉建',3:'彩紅',4:'茗莉',5:'品秀'};
   var HAS_T=false;for(var k in TABLE){HAS_T=true;break}
   function stripSuf(s){return s.replace(/[哥姐姊]$/,'')}
@@ -672,6 +716,7 @@ a{color:var(--blue);font-weight:800}
       c.innerHTML='好開心可以與大家一起健行 🌿<br>請關注社群，<br>期待下一個活動見！';h='';
     }
     x.innerHTML=h;
+    var wxc=$('#wxCard');if(wxc)wxc.hidden=!(diff<=2&&!over);
     $$('#cdExtra input[data-r]').forEach(function(i){i.onchange=function(){rm[i.getAttribute('data-r')]=i.checked;lsSet('rm',rm);chkRm()}});
     chkRm();
     function chkRm(){var o=$('#rmOk');if(o)o.style.display=(rm.a&&rm.b)?'block':'none'}
@@ -683,6 +728,19 @@ a{color:var(--blue);font-weight:800}
     car.addEventListener('scroll',function(){cnt.textContent=(idx()+1)+' / '+n});
     function go(d){var i=Math.min(n-1,Math.max(0,idx()+d));car.scrollTo({left:i*wd(),behavior:'smooth'})}
     $('#rpv').onclick=function(){go(-1)};$('#rnx').onclick=function(){go(1)};
+  })();
+  (function(){
+    var sky=$('#wxSky'),msg=$('#wxMsg'),btn=$('#wxBtn'),cnt=$('#wxCnt');if(!sky)return;
+    var clear=false,n=0,f=$('#wxFloats');
+    for(var j=0;j<6;j++){var s=document.createElement('div');s.className='wxfloat';s.textContent=j%2?'✨':'☀️';s.style.left=(10+j*15)+'%';s.style.animationDelay=(j*0.45)+'s';f.appendChild(s)}
+    function render(){
+      btn.innerHTML=clear?'☁️ 再按一次，讓雲再回來看看':'☀️ 為好天氣加油';
+      msg.innerHTML=clear?'🌈 謝謝你！<br>不管晴雨，我們都會<b>一起平安走完</b>。':'☁️ 天氣變化很快，<b>我們一起期待好天氣</b>！<br>就算下雨，也有備案路線，風景更好。';
+      msg.className='wxmsg'+(clear?' clear':'');
+      cnt.textContent=n?('你已經按了 '+n+' 次（只記在你自己的手機，不會傳出去）'):'';
+    }
+    btn.onclick=function(){clear=!clear;if(clear)n++;sky.classList.toggle('clear',clear);render()};
+    render();
   })();
   (function(){var rb=$('#reloadBtn');if(rb)rb.onclick=function(){var h=location.hash||'';location.replace(location.pathname+'?r='+Date.now()+h)}})();
   window.__cd=renderCountdown;
